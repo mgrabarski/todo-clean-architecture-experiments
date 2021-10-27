@@ -12,7 +12,7 @@ class CreateNewTodoList(
     private val repository: TodoListRepository
 ) : ArgumentedUseCase<Argument, Result<TodoList>> {
 
-    override fun execute(argument: Argument): Flow<Result<TodoList>> = flow {
+    override suspend fun execute(argument: Argument): Flow<Result<TodoList>> = flow {
         if (argument.name.isEmpty()) {
             emit(Failure(ERROR_EMPTY_NAME))
             return@flow
