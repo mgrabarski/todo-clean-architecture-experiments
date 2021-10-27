@@ -11,4 +11,6 @@ class FakeToDoListRepository : TodoListRepository {
     override suspend fun saveList(newList: TodoList) {
         lists[newList.id] = newList
     }
+
+    override suspend fun getById(id: Id): TodoList? = lists[id]
 }
