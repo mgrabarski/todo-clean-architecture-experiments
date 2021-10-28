@@ -4,16 +4,17 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk ApplicationConfig.compileSdkVersion
 
     defaultConfig {
-        applicationId "blog.mateuszgrabarski.todo"
-        minSdk 23
-        targetSdk 30
-        versionCode 1
-        versionName "1.0"
+        applicationId Flavours.productionApplicationId
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdkVersion ApplicationConfig.minSdkVersion
+        targetSdkVersion ApplicationConfig.targetSdkVersion
+        versionCode ApplicationConfig.versionCode
+        versionName ApplicationConfig.versionName
+
+        testInstrumentationRunner AndroidTestDependencies.instrumentation_runner
     }
 
     buildTypes {
@@ -23,21 +24,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility Java.java_version
+        targetCompatibility Java.java_version
     }
+
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = Java.java_version
     }
 }
 
 dependencies {
-
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation AndroidDependencies.core
+    implementation AndroidDependencies.appCompat
+    implementation AndroidDependencies.material
+    implementation AndroidDependencies.constraintLayout
 }

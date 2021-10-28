@@ -1,0 +1,15 @@
+object Versions {
+    val gradle = "7.0.3"
+    val kotlin = "1.5.31"
+    val coroutines = "1.5.2"
+    val coroutinesTest = "1.5.1"
+    val androidCore = "1.7.0"
+    val appCompat = "1.3.1"
+    val material = "1.4.0"
+    val constraintLayout = "2.1.1"
+    val junit = "5.8.1"
+    val jodaTime = "2.10.13"
+    val kotest = "4.4.3"
+    val mockk = "1.12.0"
+    val espresso = "3.4.0"
+}
