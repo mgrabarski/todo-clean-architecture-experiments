@@ -15,10 +15,8 @@ interface UpdateTodoList : ArgumentedUseCase<Arguments, Result<TodoList>> {
         val newDescription: String
     )
 
-
-    val ERROR_LIST_NOT_FOUND
-        get() = "list with id from arguments not found"
-
-    val ERROR_EMPTY_NAME
-        get() = "name can not be empty"
+    companion object {
+        const val ERROR_LIST_NOT_FOUND = "list with id from arguments not found"
+        const val ERROR_EMPTY_NAME = "name can not be empty"
+    }
 }

@@ -5,6 +5,8 @@ import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Arguments
+import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_EMPTY_NAME
+import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_LIST_NOT_FOUND
 import blog.mateuszgrabarski.todo.domain.usecases.lists.impl.UpdateTodoListImpl
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
@@ -30,7 +32,7 @@ internal class UpdateTodoListTest {
             )
         ).collect {
             val result = it as Failure
-            assertEquals(sut.ERROR_LIST_NOT_FOUND, result.message)
+            assertEquals(ERROR_LIST_NOT_FOUND, result.message)
         }
     }
 
@@ -65,7 +67,7 @@ internal class UpdateTodoListTest {
             )
         ).collect {
             val result = it as Failure
-            assertEquals(sut.ERROR_EMPTY_NAME, result.message)
+            assertEquals(ERROR_EMPTY_NAME, result.message)
         }
     }
 

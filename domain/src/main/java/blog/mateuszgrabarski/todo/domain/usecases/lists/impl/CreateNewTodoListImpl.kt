@@ -6,6 +6,7 @@ import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
 import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList
 import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Arguments
+import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Companion.ERROR_EMPTY_NAME
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
