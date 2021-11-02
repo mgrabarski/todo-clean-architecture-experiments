@@ -19,4 +19,8 @@ class TodoListRepositoryImpl(
     override suspend fun getById(id: Id): TodoList? {
         TODO("Not yet implemented")
     }
+
+    override suspend fun update(list: TodoList) {
+        TODO("Not yet implemented")
+    }
 }

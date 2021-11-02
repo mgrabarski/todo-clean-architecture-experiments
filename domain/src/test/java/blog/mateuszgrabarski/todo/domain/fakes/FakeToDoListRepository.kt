@@ -13,4 +13,8 @@ class FakeToDoListRepository : TodoListRepository {
     }
 
     override suspend fun getById(id: Id): TodoList? = lists[id]
+
+    override suspend fun update(list: TodoList) {
+        lists[list.id] = list
+    }
 }
