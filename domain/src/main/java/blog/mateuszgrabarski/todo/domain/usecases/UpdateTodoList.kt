@@ -1,5 +1,6 @@
 package blog.mateuszgrabarski.todo.domain.usecases
 
+import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
@@ -9,11 +10,12 @@ import kotlinx.coroutines.flow.flow
 import org.joda.time.DateTime
 
 class UpdateTodoList(
+    private val nameValidator: TodoListNameValidator,
     private val repository: TodoListRepository
 ) : ArgumentedUseCase<Arguments, Result<TodoList>> {
 
     override suspend fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
-        if (argument.newName.isEmpty()) {
+        if (!nameValidator.isValid(argument.newName)) {
             emit(Failure(ERROR_EMPTY_NAME))
             return@flow
         }

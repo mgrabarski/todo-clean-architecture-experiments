@@ -1,5 +1,6 @@
 package blog.mateuszgrabarski.todo.domain.usecases
 
+import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
@@ -14,8 +15,9 @@ import org.junit.jupiter.api.Test
 
 internal class UpdateTodoListTest {
 
+    private val nameValidator = TodoListNameValidator()
     private val repository = FakeToDoListRepository()
-    private val sut = UpdateTodoList(repository)
+    private val sut = UpdateTodoList(nameValidator, repository)
 
     @Test
     internal fun `emits failure when list not found in repository`() = runBlocking {

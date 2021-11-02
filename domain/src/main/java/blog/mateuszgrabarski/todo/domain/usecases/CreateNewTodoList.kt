@@ -1,6 +1,7 @@
 package blog.mateuszgrabarski.todo.domain.usecases
 
 import blog.mateuszgrabarski.todo.domain.data.factories.TodoListFactory
+import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
 import blog.mateuszgrabarski.todo.domain.usecases.CreateNewTodoList.Argument
@@ -8,12 +9,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class CreateNewTodoList(
+    private val nameValidator: TodoListNameValidator,
     private val factory: TodoListFactory,
     private val repository: TodoListRepository
 ) : ArgumentedUseCase<Argument, Result<TodoList>> {
 
     override suspend fun execute(argument: Argument): Flow<Result<TodoList>> = flow {
-        if (argument.name.isEmpty()) {
+        if (!nameValidator.isValid(argument.name)) {
             emit(Failure(ERROR_EMPTY_NAME))
             return@flow
         }
