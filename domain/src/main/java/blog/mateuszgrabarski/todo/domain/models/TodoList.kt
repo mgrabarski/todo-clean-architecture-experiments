@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 
 data class TodoList(
     val id: Id,
-    val name: String,
-    val description: String,
+    var name: String,
+    var description: String,
     val createDate: DateTime,
-    val modificationDateTime: DateTime?
+    var modificationDateTime: DateTime?
 )
