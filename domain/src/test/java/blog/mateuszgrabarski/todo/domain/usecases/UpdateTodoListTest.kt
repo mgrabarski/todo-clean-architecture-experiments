@@ -4,6 +4,7 @@ import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.usecases.UpdateTodoList.Arguments
+import blog.mateuszgrabarski.todo.domain.usecases.UpdateTodoList.Companion.ERROR_EMPTY_NAME
 import blog.mateuszgrabarski.todo.domain.usecases.UpdateTodoList.Companion.ERROR_LIST_NOT_FOUND
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
@@ -51,6 +52,20 @@ internal class UpdateTodoListTest {
         }
     }
 
+    @Test
+    internal fun `Not allows to update list when new name is empty`() = runBlocking {
+        sut.execute(
+            Arguments(
+                listId = ANY_ID,
+                newName = EMPTY_NAME,
+                newDescription = NEW_DESCRIPTION
+            )
+        ).collect {
+            val result = it as Failure
+            assertEquals(ERROR_EMPTY_NAME, result.message)
+        }
+    }
+
     private fun anyTodoList() = TodoList(
         id = ANY_ID,
         name = "name",
@@ -63,5 +78,6 @@ internal class UpdateTodoListTest {
         private val ANY_ID = Id.randomUUID()
         private const val NEW_NAME = "naw name"
         private const val NEW_DESCRIPTION = "new description"
+        private const val EMPTY_NAME = ""
     }
 }

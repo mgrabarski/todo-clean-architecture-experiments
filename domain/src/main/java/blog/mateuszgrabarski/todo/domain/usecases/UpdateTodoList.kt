@@ -13,6 +13,11 @@ class UpdateTodoList(
 ) : ArgumentedUseCase<Arguments, Result<TodoList>> {
 
     override suspend fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
+        if (argument.newName.isEmpty()) {
+            emit(Failure(ERROR_EMPTY_NAME))
+            return@flow
+        }
+
         val list = repository.getById(argument.listId)
 
         if (list == null) {
@@ -38,5 +43,6 @@ class UpdateTodoList(
 
     companion object {
         const val ERROR_LIST_NOT_FOUND = "list with id from arguments not found"
+        const val ERROR_EMPTY_NAME = "name can not be empty"
     }
 }
