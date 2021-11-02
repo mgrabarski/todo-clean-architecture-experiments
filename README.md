@@ -15,8 +15,9 @@ Lists:
 
 Todo:
 - Add new todo to the list
-- Mark todo as completed
 - Edit todo description
+- Mark todo as completed
+- Mart todo as not completed
 - Delete todo
 
 ## _Additional requirements_
