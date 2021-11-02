@@ -1,4 +1,4 @@
-package blog.mateuszgrabarski.todo.domain.usecases
+package blog.mateuszgrabarski.todo.domain.usecases.utils
 
 import kotlinx.coroutines.flow.Flow
 

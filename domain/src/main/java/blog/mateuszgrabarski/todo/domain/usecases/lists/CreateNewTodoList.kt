@@ -1,10 +1,14 @@
-package blog.mateuszgrabarski.todo.domain.usecases
+package blog.mateuszgrabarski.todo.domain.usecases.lists
 
 import blog.mateuszgrabarski.todo.domain.data.factories.TodoListFactory
 import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
-import blog.mateuszgrabarski.todo.domain.usecases.CreateNewTodoList.Argument
+import blog.mateuszgrabarski.todo.domain.usecases.utils.ArgumentedUseCase
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
+import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Argument
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -1,12 +1,14 @@
-package blog.mateuszgrabarski.todo.domain.usecases
+package blog.mateuszgrabarski.todo.domain.usecases.lists
 
 import blog.mateuszgrabarski.todo.domain.data.factories.TodoListFactory
 import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
-import blog.mateuszgrabarski.todo.domain.usecases.CreateNewTodoList.Argument
-import blog.mateuszgrabarski.todo.domain.usecases.CreateNewTodoList.Companion.ERROR_EMPTY_NAME
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
+import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Argument
+import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Companion.ERROR_EMPTY_NAME
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals

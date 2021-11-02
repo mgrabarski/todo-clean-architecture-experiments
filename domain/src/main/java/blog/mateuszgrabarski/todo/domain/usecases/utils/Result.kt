@@ -1,4 +1,4 @@
-package blog.mateuszgrabarski.todo.domain.usecases
+package blog.mateuszgrabarski.todo.domain.usecases.utils
 
 sealed class Result<out T : Any>
 data class Success<out T : Any>(val data: T) : Result<T>()

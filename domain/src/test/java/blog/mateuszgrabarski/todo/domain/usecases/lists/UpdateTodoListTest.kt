@@ -1,12 +1,14 @@
-package blog.mateuszgrabarski.todo.domain.usecases
+package blog.mateuszgrabarski.todo.domain.usecases.lists
 
 import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
-import blog.mateuszgrabarski.todo.domain.usecases.UpdateTodoList.Arguments
-import blog.mateuszgrabarski.todo.domain.usecases.UpdateTodoList.Companion.ERROR_EMPTY_NAME
-import blog.mateuszgrabarski.todo.domain.usecases.UpdateTodoList.Companion.ERROR_LIST_NOT_FOUND
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
+import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Arguments
+import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_EMPTY_NAME
+import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_LIST_NOT_FOUND
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.joda.time.DateTime
