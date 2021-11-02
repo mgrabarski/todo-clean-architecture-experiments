@@ -8,7 +8,7 @@ This is a simple project for managing todo lists with todos.
 Application should handle below use cases:
 Lists:
 - Creates new todo list
-- Update todo list name
+- Update todo list name and description
 - Delete todo list
 - Provides todos to complete
 - Provides todos completed
