@@ -6,6 +6,7 @@ import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
 import blog.mateuszgrabarski.todo.domain.usecases.UpdateTodoList.Arguments
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.joda.time.DateTime
 
 class UpdateTodoList(
     private val repository: TodoListRepository
@@ -18,6 +19,15 @@ class UpdateTodoList(
             Failure(ERROR_LIST_NOT_FOUND)
             return@flow
         }
+
+        with(list) {
+            name = argument.newName
+            description = argument.newDescription
+            modificationDateTime = DateTime.now()
+        }
+
+        repository.update(list)
+        emit(Success(list))
     }
 
     data class Arguments(
