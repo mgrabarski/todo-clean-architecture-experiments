@@ -19,5 +19,11 @@ Todo:
 - Edit todo description
 - Delete todo
 
+## _Additional requirements_
+- List can not have empty name
+- Todo description can not be empty
+- Todo can be only completed
+- Completed todo can go to not completed state
+
 So I'm the business here and this is what I would like to do in this sample.
 
