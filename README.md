@@ -1,5 +1,5 @@
 # Todo App based on Clean Architecture
-## _Example how I understand and how I'm using this approach in the project_
+## _Example how I understand clean architecture approach in the project_
 
 First of all I need to present domain of the project. What it should do from business point of view.
 
@@ -17,6 +17,7 @@ Todo:
 - Add new todo to the list
 - Mark todo as completed
 - Edit todo description
-- Detele todo
+- Delete todo
 
 So I'm the business here and this is what I would like to do in this sample.
+
