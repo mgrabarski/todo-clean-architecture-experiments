@@ -4,11 +4,10 @@ import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
+import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Arguments
+import blog.mateuszgrabarski.todo.domain.usecases.lists.impl.UpdateTodoListImpl
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
-import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Arguments
-import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_EMPTY_NAME
-import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_LIST_NOT_FOUND
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.joda.time.DateTime
@@ -19,7 +18,7 @@ internal class UpdateTodoListTest {
 
     private val nameValidator = TodoListNameValidator()
     private val repository = FakeToDoListRepository()
-    private val sut = UpdateTodoList(nameValidator, repository)
+    private val sut = UpdateTodoListImpl(nameValidator, repository)
 
     @Test
     internal fun `emits failure when list not found in repository`() = runBlocking {
@@ -31,7 +30,7 @@ internal class UpdateTodoListTest {
             )
         ).collect {
             val result = it as Failure
-            assertEquals(ERROR_LIST_NOT_FOUND, result.message)
+            assertEquals(sut.ERROR_LIST_NOT_FOUND, result.message)
         }
     }
 
@@ -66,7 +65,7 @@ internal class UpdateTodoListTest {
             )
         ).collect {
             val result = it as Failure
-            assertEquals(ERROR_EMPTY_NAME, result.message)
+            assertEquals(sut.ERROR_EMPTY_NAME, result.message)
         }
     }
 
