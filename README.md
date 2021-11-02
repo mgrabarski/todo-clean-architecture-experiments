@@ -10,8 +10,8 @@ Lists:
 - Creates new todo list
 - Update todo list name and description
 - Delete todo list
-- Provides todos to complete
-- Provides todos completed
+- Get todo list by id
+- Get all todo lists
 
 Todo:
 - Add new todo to the list
