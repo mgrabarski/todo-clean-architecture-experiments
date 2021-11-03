@@ -27,4 +27,8 @@ class TodoListRepositoryImpl(
     override suspend fun delete(id: Id) {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getAllLists(): List<TodoList> {
+        TODO("Not yet implemented")
+    }
 }

@@ -21,4 +21,6 @@ class FakeToDoListRepository : TodoListRepository {
     override suspend fun delete(id: Id) {
         lists.remove(id)
     }
+
+    override suspend fun getAllLists(): List<TodoList> = lists.values.toList()
 }

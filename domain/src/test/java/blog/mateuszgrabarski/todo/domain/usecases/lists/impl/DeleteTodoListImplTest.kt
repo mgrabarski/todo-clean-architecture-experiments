@@ -10,8 +10,7 @@ import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.joda.time.DateTime
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class DeleteTodoListImplTest {
@@ -33,6 +32,7 @@ internal class DeleteTodoListImplTest {
         sut.execute(ANY_ID).collect {
             val result = (it as Success<Boolean>).data
             assertTrue(result)
+            assertNull(repository.getById(ANY_ID))
         }
     }
 
