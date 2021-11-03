@@ -3,6 +3,7 @@ package blog.mateuszgrabarski.todo.domain.usecases.todo
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.usecases.todo.MarkTodoAsNotCompleted.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.utils.ArgumentedUseCase
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
 
 interface MarkTodoAsNotCompleted : ArgumentedUseCase<Arguments, Result<Boolean>> {
 

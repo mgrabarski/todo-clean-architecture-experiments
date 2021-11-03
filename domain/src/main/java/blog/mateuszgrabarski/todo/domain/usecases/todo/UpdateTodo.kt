@@ -4,6 +4,7 @@ import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.Todo
 import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.utils.ArgumentedUseCase
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
 
 interface UpdateTodo : ArgumentedUseCase<Arguments, Result<Todo>> {
 
