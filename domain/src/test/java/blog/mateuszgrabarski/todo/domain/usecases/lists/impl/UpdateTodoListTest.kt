@@ -1,13 +1,13 @@
-package blog.mateuszgrabarski.todo.domain.usecases.lists
+package blog.mateuszgrabarski.todo.domain.usecases.lists.impl
 
 import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
+import blog.mateuszgrabarski.todo.domain.fakes.data.anyTodoList
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_EMPTY_NAME
 import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_LIST_NOT_FOUND
-import blog.mateuszgrabarski.todo.domain.usecases.lists.impl.UpdateTodoListImpl
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
 import kotlinx.coroutines.flow.collect
@@ -38,7 +38,7 @@ internal class UpdateTodoListTest {
 
     @Test
     internal fun `Updates list`() = runBlocking {
-        repository.saveList(anyTodoList())
+        repository.saveList(anyTodoList(ANY_ID))
         sut.execute(
             Arguments(
                 listId = ANY_ID,
@@ -70,14 +70,6 @@ internal class UpdateTodoListTest {
             assertEquals(ERROR_EMPTY_NAME, result.message)
         }
     }
-
-    private fun anyTodoList() = TodoList(
-        id = ANY_ID,
-        name = "name",
-        description = "",
-        createDate = DateTime.now(),
-        null
-    )
 
     companion object {
         private val ANY_ID = Id.randomUUID()

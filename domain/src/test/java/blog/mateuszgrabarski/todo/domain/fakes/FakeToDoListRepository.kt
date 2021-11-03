@@ -17,4 +17,8 @@ class FakeToDoListRepository : TodoListRepository {
     override suspend fun update(list: TodoList) {
         lists[list.id] = list
     }
+
+    override suspend fun delete(id: Id) {
+        lists.remove(id)
+    }
 }
