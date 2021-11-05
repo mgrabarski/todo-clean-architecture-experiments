@@ -1,5 +1,6 @@
 package blog.mateuszgrabarski.todo.domain.usecases.todo.impl
 
+import app.cash.turbine.test
 import blog.mateuszgrabarski.todo.domain.data.factories.TodoFactory
 import blog.mateuszgrabarski.todo.domain.data.validators.TodoDescriptionValidator
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
@@ -44,9 +45,10 @@ internal class AddTodoToListImplTest {
                 description = VALID_DESCRIPTION,
                 listId = ANY_LIST_ID
             )
-        ).collect {
-            val result = it as Success<Todo>
+        ).test {
+            val result = awaitItem() as Success<Todo>
             assertEquals(todoRepository.getById(result.data.id), result.data)
+            awaitComplete()
         }
     }
 
@@ -57,9 +59,10 @@ internal class AddTodoToListImplTest {
                 description = VALID_DESCRIPTION,
                 listId = ANY_LIST_ID
             )
-        ).collect {
-            val result = it as Failure
+        ).test {
+            val result = awaitItem() as Failure
             assertEquals(ERROR_LIST_NOT_FOUND, result.message)
+            awaitComplete()
         }
     }
 
@@ -70,9 +73,10 @@ internal class AddTodoToListImplTest {
                 description = NOT_VALID_DESCRIPTION,
                 listId = ANY_LIST_ID
             )
-        ).collect {
-            val result = it as Failure
+        ).test {
+            val result = awaitItem() as Failure
             assertEquals(ERROR_EMPTY_DESCRIPTION, result.message)
+            awaitComplete()
         }
     }
 
