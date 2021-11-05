@@ -4,8 +4,9 @@ import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.Todo
 import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.utils.ArgumentedUseCase
+import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
 
-interface AddTodoToList : ArgumentedUseCase<Arguments, Todo> {
+interface AddTodoToList : ArgumentedUseCase<Arguments, Result<Todo>> {
 
     data class Arguments(
         val listId: Id,

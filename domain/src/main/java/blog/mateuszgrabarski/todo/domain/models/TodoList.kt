@@ -5,5 +5,11 @@ data class TodoList(
     var name: String,
     var description: String,
     val createDate: DateTime,
-    var modificationDateTime: DateTime?
-)
+    var modificationDateTime: DateTime?,
+    private val todos: MutableList<Todo> = mutableListOf()
+) {
+
+    fun addTodo(todo: Todo) {
+        todos.add(todo)
+    }
+}
