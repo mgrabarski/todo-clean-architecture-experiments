@@ -1,5 +1,6 @@
 package blog.mateuszgrabarski.todo.domain.usecases.lists.impl
 
+import app.cash.turbine.test
 import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.fakes.data.anyTodoList
@@ -10,9 +11,7 @@ import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion
 import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Companion.ERROR_LIST_NOT_FOUND
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
-import org.joda.time.DateTime
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -30,9 +29,10 @@ internal class UpdateTodoListTest {
                 newName = NEW_NAME,
                 newDescription = NEW_DESCRIPTION
             )
-        ).collect {
-            val result = it as Failure
+        ).test {
+            val result = awaitItem() as Failure
             assertEquals(ERROR_LIST_NOT_FOUND, result.message)
+            awaitComplete()
         }
     }
 
@@ -45,8 +45,8 @@ internal class UpdateTodoListTest {
                 newName = NEW_NAME,
                 newDescription = NEW_DESCRIPTION
             )
-        ).collect {
-            val emittedResult = it is Success<TodoList>
+        ).test {
+            val emittedResult = awaitItem() is Success<TodoList>
             assertTrue(emittedResult)
 
             val result = repository.getById(ANY_ID)!!
@@ -54,6 +54,7 @@ internal class UpdateTodoListTest {
             assertEquals(NEW_NAME, result.name)
             assertEquals(NEW_DESCRIPTION, result.description)
             assertNotNull(result.modificationDateTime)
+            awaitComplete()
         }
     }
 
@@ -65,9 +66,10 @@ internal class UpdateTodoListTest {
                 newName = EMPTY_NAME,
                 newDescription = NEW_DESCRIPTION
             )
-        ).collect {
-            val result = it as Failure
+        ).test {
+            val result = awaitItem() as Failure
             assertEquals(ERROR_EMPTY_NAME, result.message)
+            awaitComplete()
         }
     }
 

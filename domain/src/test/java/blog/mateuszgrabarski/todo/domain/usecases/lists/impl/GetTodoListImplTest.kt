@@ -1,5 +1,6 @@
 package blog.mateuszgrabarski.todo.domain.usecases.lists.impl
 
+import app.cash.turbine.test
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.fakes.data.anyTodoList
 import blog.mateuszgrabarski.todo.domain.models.Id
@@ -8,7 +9,6 @@ import blog.mateuszgrabarski.todo.domain.usecases.lists.GetTodoList.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.lists.GetTodoList.Companion.ERROR_LIST_NOT_FOUND
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -22,9 +22,10 @@ internal class GetTodoListImplTest {
     internal fun `Emits error when list is not found`() = runBlocking {
         sut.execute(
             Arguments(ANY_ID)
-        ).collect {
-            val result = (it as Failure).message
+        ).test {
+            val result = (awaitItem() as Failure).message
             assertEquals(ERROR_LIST_NOT_FOUND, result)
+            awaitComplete()
         }
     }
 
@@ -33,9 +34,10 @@ internal class GetTodoListImplTest {
         repository.saveList(anyTodoList(ANY_ID))
         sut.execute(
             Arguments(ANY_ID)
-        ).collect {
-            val result = (it as Success<TodoList>).data
+        ).test {
+            val result = (awaitItem() as Success<TodoList>).data
             assertEquals(ANY_ID, result.id)
+            awaitComplete()
         }
     }
 

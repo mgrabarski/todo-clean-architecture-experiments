@@ -1,8 +1,9 @@
 package blog.mateuszgrabarski.todo.domain.usecases.lists.impl
 
+import app.cash.turbine.test
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.fakes.data.anyTodoList
-import kotlinx.coroutines.flow.collect
+import blog.mateuszgrabarski.todo.domain.models.TodoList
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -14,16 +15,20 @@ internal class GetAllTodoListsImplTest {
 
     @Test
     internal fun `Returns empty list when no lists`() = runBlocking {
-        sut.execute().collect {
-            assertEquals(0, it.size)
+        sut.execute().test {
+            val result = awaitItem()
+            assertEquals(0, result.size)
+            awaitComplete()
         }
     }
 
     @Test
     internal fun `Gets all lists`() = runBlocking {
         repository.saveList(anyTodoList())
-        sut.execute().collect {
-            assertEquals(1, it.size)
+        sut.execute().test {
+            val result = awaitItem()
+            assertEquals(1, result.size)
+            awaitComplete()
         }
     }
 }

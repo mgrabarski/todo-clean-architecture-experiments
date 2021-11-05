@@ -28,7 +28,7 @@ class UpdateTodoListImpl(
         val list = repository.getById(argument.listId)
 
         if (list == null) {
-            Failure(ERROR_LIST_NOT_FOUND)
+            emit(Failure(ERROR_LIST_NOT_FOUND))
             return@flow
         }
 
