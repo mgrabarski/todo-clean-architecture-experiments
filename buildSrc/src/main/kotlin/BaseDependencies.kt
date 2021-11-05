@@ -23,6 +23,7 @@ object UnitTestDependencies {
     val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesTest}"
     val mockk = "io.mockk:mockk:${Versions.mockk}"
     val mockkAgentJvm = "io.mockk:mockk-agent-jvm:${Versions.mockk}"
+    val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
 }
 
 object AndroidInstrumentationTestDependencies {

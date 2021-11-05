@@ -13,4 +13,8 @@ class FakeTodoRepository : TodoRepository {
     }
 
     override suspend fun getById(id: Id): Todo? = todos[id]
+
+    override suspend fun delete(todo: Todo) {
+        todos.remove(todo.id)
+    }
 }

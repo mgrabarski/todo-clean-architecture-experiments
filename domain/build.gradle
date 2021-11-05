@@ -19,6 +19,7 @@ dependencies {
     implementation Dependencies.kotlinCoroutines
     implementation Dependencies.jodaTime
 
+    testImplementation UnitTestDependencies.turbine
     testImplementation Dependencies.kotlinCoroutines
     testImplementation UnitTestDependencies.kotlinCoroutines
     testImplementation UnitTestDependencies.junit

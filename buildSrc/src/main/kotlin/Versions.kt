@@ -12,4 +12,5 @@ object Versions {
     val kotest = "4.4.3"
     val mockk = "1.12.0"
     val espresso = "3.4.0"
+    val turbine = "0.7.0"
 }
