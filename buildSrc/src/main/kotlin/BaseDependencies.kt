@@ -6,6 +6,7 @@ object BaseDependencies {
 object Dependencies {
     val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     val jodaTime = "joda-time:joda-time:${Versions.jodaTime}"
+    val koin = "io.insert-koin:koin-core:$${Versions.koin}"
 }
 
 object AndroidDependencies {
@@ -13,6 +14,7 @@ object AndroidDependencies {
     val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     val material = "com.google.android.material:material:${Versions.material}"
     val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    val koin = "io.insert-koin:koin-android:${Versions.koin}"
 }
 
 object UnitTestDependencies {
@@ -24,6 +26,7 @@ object UnitTestDependencies {
     val mockk = "io.mockk:mockk:${Versions.mockk}"
     val mockkAgentJvm = "io.mockk:mockk-agent-jvm:${Versions.mockk}"
     val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
+    val koin = "io.insert-koin:koin-test-junit5:${Versions.koin}"
 }
 
 object AndroidInstrumentationTestDependencies {

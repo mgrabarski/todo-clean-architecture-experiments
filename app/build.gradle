@@ -38,4 +38,7 @@ dependencies {
     implementation AndroidDependencies.appCompat
     implementation AndroidDependencies.material
     implementation AndroidDependencies.constraintLayout
+    implementation AndroidDependencies.koin
+
+    implementation project(Modules.domain)
 }

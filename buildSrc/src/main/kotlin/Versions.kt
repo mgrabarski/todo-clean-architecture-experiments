@@ -13,4 +13,5 @@ object Versions {
     val mockk = "1.12.0"
     val espresso = "3.4.0"
     val turbine = "0.7.0"
+    val koin = "3.1.3"
 }
