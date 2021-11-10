@@ -15,5 +15,6 @@ interface UpdateTodo : ArgumentedUseCase<Arguments, UseCaseResult<Todo>> {
 
     companion object {
         const val ERROR_TODO_NOT_FOUND = "Todo with id from arguments not found"
+        const val ERROR_EMPTY_DESCRIPTION = "empty description"
     }
 }
