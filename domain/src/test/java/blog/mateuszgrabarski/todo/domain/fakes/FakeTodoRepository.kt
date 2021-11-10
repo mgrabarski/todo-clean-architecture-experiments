@@ -24,4 +24,16 @@ class FakeTodoRepository : TodoRepository {
         notCompleted.remove(todo.id)
         completed[todo.id] = todo
     }
+
+    override suspend fun isCompleted(id: Id): Boolean = completed.containsKey(id)
+
+    override suspend fun markAsNotCompleted(todo: Todo) {
+        completed.remove(todo.id)
+        notCompleted[todo.id] = todo
+    }
+
+    fun reset() {
+        notCompleted.clear()
+        completed.clear()
+    }
 }

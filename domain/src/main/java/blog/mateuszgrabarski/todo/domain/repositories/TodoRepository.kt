@@ -8,4 +8,6 @@ interface TodoRepository {
     suspend fun getById(id: Id): Todo?
     suspend fun delete(todo: Todo)
     suspend fun markAsCompleted(todo: Todo)
+    suspend fun isCompleted(id: Id): Boolean
+    suspend fun markAsNotCompleted(todo: Todo)
 }
