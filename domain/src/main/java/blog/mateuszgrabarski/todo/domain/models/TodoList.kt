@@ -6,13 +6,17 @@ data class TodoList(
     var description: String,
     val createDate: DateTime,
     var modificationDateTime: DateTime?,
-    private val _todos: MutableList<Todo> = mutableListOf()
+    private val _notCompletedTodos: MutableList<Todo> = mutableListOf(),
+    private val _completedTodos: MutableList<Todo> = mutableListOf()
 ) {
 
-    val todos: List<Todo>
-        get() = _todos.toList()
+    val notCompletedTodos: List<Todo>
+        get() = _notCompletedTodos.toList()
 
-    fun addTodo(todo: Todo) {
-        _todos.add(todo)
+    val completedTodos: List<Todo>
+        get() = _completedTodos.toList()
+
+    fun addNewTodo(todo: Todo) {
+        _notCompletedTodos.add(todo)
     }
 }

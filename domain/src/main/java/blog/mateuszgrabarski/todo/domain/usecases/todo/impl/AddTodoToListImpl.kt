@@ -37,7 +37,7 @@ class AddTodoToListImpl(
 
         val todo = todoFactory.create(argument.description, argument.listId)
 
-        list.addTodo(todo)
+        list.addNewTodo(todo)
         todoRepository.saveTodo(todo)
         emit(Success(todo))
     }
