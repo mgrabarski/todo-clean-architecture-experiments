@@ -19,7 +19,7 @@ class UpdateTodoListImpl(
     private val repository: TodoListRepository
 ) : UpdateTodoList {
 
-    override suspend fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
+    override fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
         if (!nameValidator.isValid(argument.newName)) {
             emit(Failure(ERROR_EMPTY_NAME))
             return@flow

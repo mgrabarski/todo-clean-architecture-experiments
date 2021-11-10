@@ -14,7 +14,7 @@ class GetTodoListImpl(
     private val repository: TodoListRepository
 ) : GetTodoList {
 
-    override suspend fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
+    override fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
         val todoList = repository.getById(argument.listId)
 
         if (todoList == null) {

@@ -14,7 +14,7 @@ class MarkTodoAsCompletedImpl(
     private val todoRepository: TodoRepository
 ) : MarkTodoAsCompleted {
 
-    override suspend fun execute(argument: Arguments): Flow<Result<Boolean>> = flow {
+    override fun execute(argument: Arguments): Flow<Result<Boolean>> = flow {
         val todo = todoRepository.getById(argument.todoId)
 
         if (todo == null) {

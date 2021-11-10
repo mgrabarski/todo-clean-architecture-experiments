@@ -22,7 +22,7 @@ class AddTodoToListImpl(
     private val todoRepository: TodoRepository
 ) : AddTodoToList {
 
-    override suspend fun execute(argument: Arguments): Flow<Result<Todo>> = flow {
+    override fun execute(argument: Arguments): Flow<Result<Todo>> = flow {
         if (!descriptionValidator.validate(argument.description)) {
             emit(Failure(ERROR_EMPTY_DESCRIPTION))
             return@flow

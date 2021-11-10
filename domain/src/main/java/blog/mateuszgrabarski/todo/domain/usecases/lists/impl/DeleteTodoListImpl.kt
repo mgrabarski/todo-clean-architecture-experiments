@@ -14,7 +14,7 @@ class DeleteTodoListImpl(
     private val repository: TodoListRepository
 ) : DeleteTodoList {
 
-    override suspend fun execute(argument: Arguments): Flow<Result<Boolean>> = flow {
+    override fun execute(argument: Arguments): Flow<Result<Boolean>> = flow {
         val list = repository.getById(argument.listId)
 
         if (list == null) {

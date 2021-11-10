@@ -19,7 +19,7 @@ class CreateNewTodoListImpl(
     private val repository: TodoListRepository
 ) : CreateNewTodoList {
 
-    override suspend fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
+    override fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
         if (!nameValidator.isValid(argument.name)) {
             emit(Failure(ERROR_EMPTY_NAME))
             return@flow

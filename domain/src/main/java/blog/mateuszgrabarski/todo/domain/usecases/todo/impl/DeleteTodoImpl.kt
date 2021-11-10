@@ -15,7 +15,7 @@ class DeleteTodoImpl(
 ) : DeleteTodo {
 
 
-    override suspend fun execute(argument: Arguments): Flow<Result<Boolean>> = flow {
+    override fun execute(argument: Arguments): Flow<Result<Boolean>> = flow {
         val todo = repository.getById(argument.todoId)
 
         if (todo == null) {
