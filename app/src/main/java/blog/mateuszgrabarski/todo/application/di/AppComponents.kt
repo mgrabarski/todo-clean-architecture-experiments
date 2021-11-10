@@ -1,7 +1,7 @@
 package blog.mateuszgrabarski.todo.application.di
 
-import org.koin.core.module.Module
+import blog.mateuszgrabarski.todo.domain.di.domainModule
 
-val components = listOf<Module>(
-
+val components = listOf(
+    domainModule
 )

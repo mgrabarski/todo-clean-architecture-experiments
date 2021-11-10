@@ -18,6 +18,7 @@ test {
 dependencies {
     implementation Dependencies.kotlinCoroutines
     implementation Dependencies.jodaTime
+    implementation Dependencies.koin
 
     testImplementation UnitTestDependencies.turbine
     testImplementation Dependencies.kotlinCoroutines

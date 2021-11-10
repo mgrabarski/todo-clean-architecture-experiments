@@ -6,7 +6,7 @@ object BaseDependencies {
 object Dependencies {
     val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     val jodaTime = "joda-time:joda-time:${Versions.jodaTime}"
-    val koin = "io.insert-koin:koin-core:$${Versions.koin}"
+    val koin = "io.insert-koin:koin-core:${Versions.koin}"
 }
 
 object AndroidDependencies {
