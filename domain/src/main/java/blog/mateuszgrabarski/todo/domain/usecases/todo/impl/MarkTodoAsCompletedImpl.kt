@@ -5,7 +5,7 @@ import blog.mateuszgrabarski.todo.domain.usecases.todo.MarkTodoAsCompleted
 import blog.mateuszgrabarski.todo.domain.usecases.todo.MarkTodoAsCompleted.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.todo.MarkTodoAsCompleted.Companion.ERROR_TODO_NOT_FOUND
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
-import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
+import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +14,7 @@ class MarkTodoAsCompletedImpl(
     private val todoRepository: TodoRepository
 ) : MarkTodoAsCompleted {
 
-    override fun execute(argument: Arguments): Flow<Result<Boolean>> = flow {
+    override fun execute(argument: Arguments): Flow<UseCaseResult<Boolean>> = flow {
         val todo = todoRepository.getById(argument.todoId)
 
         if (todo == null) {

@@ -8,7 +8,7 @@ import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList
 import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Companion.ERROR_EMPTY_NAME
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
-import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
+import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,7 +19,7 @@ class CreateNewTodoListImpl(
     private val repository: TodoListRepository
 ) : CreateNewTodoList {
 
-    override fun execute(argument: Arguments): Flow<Result<TodoList>> = flow {
+    override fun execute(argument: Arguments): Flow<UseCaseResult<TodoList>> = flow {
         if (!nameValidator.isValid(argument.name)) {
             emit(Failure(ERROR_EMPTY_NAME))
             return@flow

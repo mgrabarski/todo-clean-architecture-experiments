@@ -10,7 +10,7 @@ import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList.Companion.ERROR_EMPTY_DESCRIPTION
 import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList.Companion.ERROR_LIST_NOT_FOUND
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
-import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
+import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,7 +22,7 @@ class AddTodoToListImpl(
     private val todoRepository: TodoRepository
 ) : AddTodoToList {
 
-    override fun execute(argument: Arguments): Flow<Result<Todo>> = flow {
+    override fun execute(argument: Arguments): Flow<UseCaseResult<Todo>> = flow {
         if (!descriptionValidator.validate(argument.description)) {
             emit(Failure(ERROR_EMPTY_DESCRIPTION))
             return@flow

@@ -3,9 +3,9 @@ package blog.mateuszgrabarski.todo.domain.usecases.todo
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.utils.ArgumentedUseCase
-import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
+import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
 
-interface DeleteTodo : ArgumentedUseCase<Arguments, Result<Boolean>> {
+interface DeleteTodo : ArgumentedUseCase<Arguments, UseCaseResult<Boolean>> {
 
     data class Arguments(
         val todoId: Id

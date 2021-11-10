@@ -4,10 +4,10 @@ import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.usecases.lists.UpdateTodoList.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.utils.ArgumentedUseCase
-import blog.mateuszgrabarski.todo.domain.usecases.utils.Result
+import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
 
 
-interface UpdateTodoList : ArgumentedUseCase<Arguments, Result<TodoList>> {
+interface UpdateTodoList : ArgumentedUseCase<Arguments, UseCaseResult<TodoList>> {
 
     data class Arguments(
         val listId: Id,
