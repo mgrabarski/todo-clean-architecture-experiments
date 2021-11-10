@@ -41,4 +41,5 @@ dependencies {
     implementation AndroidDependencies.koin
 
     implementation project(Modules.domain)
+    implementation project(Modules.data)
 }
