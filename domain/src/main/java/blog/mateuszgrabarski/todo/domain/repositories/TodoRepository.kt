@@ -7,4 +7,5 @@ interface TodoRepository {
     suspend fun saveTodo(todo: Todo)
     suspend fun getById(id: Id): Todo?
     suspend fun delete(todo: Todo)
+    suspend fun markAsCompleted(todo: Todo)
 }
