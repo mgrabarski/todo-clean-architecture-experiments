@@ -8,8 +8,11 @@ import blog.mateuszgrabarski.todo.domain.repositories.TodoRepository
 import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo
 import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo.Companion.ERROR_TODO_NOT_FOUND
+import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo.Companion.ERROR_UNKNOWN
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -52,6 +55,24 @@ internal class DeleteTodoImplTest {
             assertEquals(ERROR_TODO_NOT_FOUND, result.message)
             awaitComplete()
         }
+    }
+
+    @Test
+    internal fun `Failures when repository return no success`() = runBlocking {
+        val repo = mockk<TodoRepository>()
+        coEvery { repo.getById(any()) } returns anyTodo()
+        coEvery { repo.delete(any()) } returns false
+
+        DeleteTodoImpl(repo)
+            .execute(
+                Arguments(
+                    todoId = ANY_ID
+                )
+            ).test {
+                val result = awaitItem() as Failure
+                assertEquals(ERROR_UNKNOWN, result.message)
+                awaitComplete()
+            }
     }
 
     companion object {

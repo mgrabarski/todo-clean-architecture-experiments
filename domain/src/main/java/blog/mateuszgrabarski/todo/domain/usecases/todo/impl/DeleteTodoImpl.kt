@@ -1,12 +1,14 @@
 package blog.mateuszgrabarski.todo.domain.usecases.todo.impl
 
 import blog.mateuszgrabarski.todo.domain.repositories.TodoRepository
+import blog.mateuszgrabarski.todo.domain.repositories.isSuccess
 import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo
 import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo.Companion.ERROR_TODO_NOT_FOUND
+import blog.mateuszgrabarski.todo.domain.usecases.todo.DeleteTodo.Companion.ERROR_UNKNOWN
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
-import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
+import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -23,7 +25,12 @@ class DeleteTodoImpl(
             return@flow
         }
 
-        repository.delete(todo)
-        emit(Success(true))
+        val result = repository.delete(todo)
+
+        if (result.isSuccess()) {
+            emit(Success(true))
+        } else {
+            emit(Failure(ERROR_UNKNOWN))
+        }
     }
 }
