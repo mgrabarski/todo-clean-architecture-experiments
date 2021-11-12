@@ -5,10 +5,12 @@ import blog.mateuszgrabarski.todo.domain.data.validators.TodoDescriptionValidato
 import blog.mateuszgrabarski.todo.domain.models.Todo
 import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
 import blog.mateuszgrabarski.todo.domain.repositories.TodoRepository
+import blog.mateuszgrabarski.todo.domain.repositories.isSuccess
 import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList
 import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList.Companion.ERROR_EMPTY_DESCRIPTION
 import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList.Companion.ERROR_LIST_NOT_FOUND
+import blog.mateuszgrabarski.todo.domain.usecases.todo.AddTodoToList.Companion.ERROR_UNKNOWN
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
@@ -38,7 +40,13 @@ class AddTodoToListImpl(
         val todo = todoFactory.create(argument.description, argument.listId)
 
         list.addNewTodo(todo)
-        todoRepository.saveTodo(todo)
-        emit(Success(todo))
+
+        val result = todoRepository.saveTodo(todo)
+
+        if (result.isSuccess()) {
+            emit(Success(todo))
+        } else {
+            emit(Failure(ERROR_UNKNOWN))
+        }
     }
 }

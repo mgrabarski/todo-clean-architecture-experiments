@@ -16,5 +16,6 @@ interface AddTodoToList : ArgumentedUseCase<Arguments, UseCaseResult<Todo>> {
     companion object {
         const val ERROR_LIST_NOT_FOUND = "list with id from arguments not found"
         const val ERROR_EMPTY_DESCRIPTION = "empty description"
+        const val ERROR_UNKNOWN = "something went wrong"
     }
 }
