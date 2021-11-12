@@ -44,7 +44,24 @@ class TodoListRepositoryImpl(
         return null
     }
 
-    override suspend fun update(list: TodoList): Success = true
+    override suspend fun update(list: TodoList): Success {
+        val entity = mapper.mapToEntity(list)
+
+        val result = safeCacheCall(dispatcher) {
+            cache.update(entity)
+        }
+        return when (result) {
+            is CacheResult.GenericError -> {
+                false
+            }
+            is CacheResult.Success -> {
+                safeApiCall(dispatcher) {
+                    remote.update(entity)
+                }
+                true
+            }
+        }
+    }
 
     override suspend fun delete(id: Id): Success = true
 

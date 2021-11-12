@@ -27,6 +27,7 @@ android {
 
     packagingOptions {
         exclude("META-INF/module_name_debug.kotlin_module")
+        exclude("META-INF/data_debug.kotlin_module")
     }
 
     kotlinOptions {
@@ -50,4 +51,6 @@ dependencies {
     testImplementation UnitTestDependencies.kotlinCoroutines
     testImplementation UnitTestDependencies.junit
     testRuntimeOnly UnitTestDependencies.junitJupiterEngine
+    testImplementation UnitTestDependencies.mockk
+    testImplementation UnitTestDependencies.mockkAgentJvm
 }
