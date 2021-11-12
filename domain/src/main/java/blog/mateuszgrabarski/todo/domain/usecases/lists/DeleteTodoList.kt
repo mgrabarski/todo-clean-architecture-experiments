@@ -13,5 +13,6 @@ interface DeleteTodoList : ArgumentedUseCase<Arguments, UseCaseResult<Boolean>> 
 
     companion object {
         const val ERROR_LIST_NOT_FOUND = "list with id from arguments not found"
+        const val ERROR_UNKNOWN = "something went wrong"
     }
 }
