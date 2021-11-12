@@ -25,8 +25,18 @@ android {
         targetCompatibility Java.java_version
     }
 
+    packagingOptions {
+        exclude("META-INF/module_name_debug.kotlin_module")
+    }
+
     kotlinOptions {
         jvmTarget = Java.java_version
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
     }
 }
 
@@ -34,6 +44,10 @@ dependencies {
     implementation project(Modules.domain)
     implementation AndroidDependencies.koin
     implementation Dependencies.kotlinCoroutines
+    implementation Dependencies.jodaTime
 
+    testImplementation Dependencies.kotlinCoroutines
+    testImplementation UnitTestDependencies.kotlinCoroutines
     testImplementation UnitTestDependencies.junit
+    testRuntimeOnly UnitTestDependencies.junitJupiterEngine
 }
