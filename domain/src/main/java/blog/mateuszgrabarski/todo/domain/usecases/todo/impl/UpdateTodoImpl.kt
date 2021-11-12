@@ -3,10 +3,12 @@ package blog.mateuszgrabarski.todo.domain.usecases.todo.impl
 import blog.mateuszgrabarski.todo.domain.data.validators.TodoDescriptionValidator
 import blog.mateuszgrabarski.todo.domain.models.Todo
 import blog.mateuszgrabarski.todo.domain.repositories.TodoRepository
+import blog.mateuszgrabarski.todo.domain.repositories.isSuccess
 import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo
 import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Companion.ERROR_EMPTY_DESCRIPTION
 import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Companion.ERROR_TODO_NOT_FOUND
+import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Companion.ERROR_UNKNOWN
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
 import blog.mateuszgrabarski.todo.domain.usecases.utils.UseCaseResult
@@ -37,7 +39,12 @@ class UpdateTodoImpl(
             modificationDate = DateTime.now()
         }
 
-        repository.update(todo)
-        emit(Success(todo))
+        val result = repository.update(todo)
+
+        if (result.isSuccess()) {
+            emit(Success(todo))
+        } else {
+            emit(Failure(ERROR_UNKNOWN))
+        }
     }
 }

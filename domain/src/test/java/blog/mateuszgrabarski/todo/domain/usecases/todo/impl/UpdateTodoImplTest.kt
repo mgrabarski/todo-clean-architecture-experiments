@@ -6,11 +6,15 @@ import blog.mateuszgrabarski.todo.domain.fakes.FakeTodoRepository
 import blog.mateuszgrabarski.todo.domain.fakes.data.anyTodo
 import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.Todo
+import blog.mateuszgrabarski.todo.domain.repositories.TodoRepository
 import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Companion.ERROR_EMPTY_DESCRIPTION
 import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Companion.ERROR_TODO_NOT_FOUND
+import blog.mateuszgrabarski.todo.domain.usecases.todo.UpdateTodo.Companion.ERROR_UNKNOWN
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -69,6 +73,26 @@ internal class UpdateTodoImplTest {
             assertEquals(VALID_DESCRIPTION, repository.getById(todo.id)!!.description)
             awaitComplete()
         }
+    }
+
+    @Test
+    internal fun `Failures when repo returns no success`() = runBlocking {
+        val repo = mockk<TodoRepository> {
+            coEvery { getById(any()) } returns anyTodo()
+            coEvery { update(any()) } returns false
+        }
+
+        UpdateTodoImpl(repo, validator)
+            .execute(
+                Arguments(
+                    todoId = ANY_ID,
+                    description = VALID_DESCRIPTION
+                )
+            ).test {
+                val result = awaitItem() as Failure
+                assertEquals(ERROR_UNKNOWN, result.message)
+                awaitComplete()
+            }
     }
 
     companion object {

@@ -10,5 +10,5 @@ interface TodoRepository {
     suspend fun markAsCompleted(todo: Todo): Success
     suspend fun isCompleted(id: Id): Boolean
     suspend fun markAsNotCompleted(todo: Todo): Success
-    suspend fun update(todo: Todo)
+    suspend fun update(todo: Todo): Success
 }

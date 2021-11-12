@@ -37,12 +37,13 @@ class FakeTodoRepository : TodoRepository {
         return true
     }
 
-    override suspend fun update(todo: Todo) {
+    override suspend fun update(todo: Todo): Success {
         if (notCompleted.containsKey(todo.id)) {
             notCompleted[todo.id] = todo
         } else if (completed.containsKey(todo.id)) {
             completed[todo.id] = todo
         }
+        return true
     }
 
     fun reset() {
