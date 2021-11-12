@@ -4,11 +4,15 @@ import app.cash.turbine.test
 import blog.mateuszgrabarski.todo.domain.fakes.FakeTodoRepository
 import blog.mateuszgrabarski.todo.domain.fakes.data.anyTodo
 import blog.mateuszgrabarski.todo.domain.models.Id
+import blog.mateuszgrabarski.todo.domain.repositories.TodoRepository
 import blog.mateuszgrabarski.todo.domain.usecases.todo.MarkTodoAsNotCompleted.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.todo.MarkTodoAsNotCompleted.Companion.ERROR_ALREADY_COMPLETED
 import blog.mateuszgrabarski.todo.domain.usecases.todo.MarkTodoAsNotCompleted.Companion.ERROR_TODO_NOT_FOUND
+import blog.mateuszgrabarski.todo.domain.usecases.todo.MarkTodoAsNotCompleted.Companion.ERROR_UNKNOWN
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -67,6 +71,26 @@ internal class MarkTodoAsNotCompletedImplTest {
             assertFalse(repository.isCompleted(ANY_ID))
             awaitComplete()
         }
+    }
+
+    @Test
+    internal fun `Failures when repo returns no success`() = runBlocking {
+        val repo = mockk<TodoRepository> {
+            coEvery { getById(any()) } returns anyTodo()
+            coEvery { isCompleted(any()) } returns true
+            coEvery { markAsNotCompleted(any()) } returns false
+        }
+
+        MarkTodoAsNotCompletedImpl(repo)
+            .execute(
+                Arguments(
+                    todoId = ANY_ID
+                )
+            ).test {
+                val result = awaitItem() as Failure
+                assertEquals(ERROR_UNKNOWN, result.message)
+                awaitComplete()
+            }
     }
 
     companion object {

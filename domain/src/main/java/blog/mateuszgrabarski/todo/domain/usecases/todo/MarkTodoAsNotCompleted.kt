@@ -14,5 +14,6 @@ interface MarkTodoAsNotCompleted : ArgumentedUseCase<Arguments, UseCaseResult<Bo
     companion object {
         const val ERROR_TODO_NOT_FOUND = "Todo with id from arguments not found"
         const val ERROR_ALREADY_COMPLETED = "Todo is already completed"
+        const val ERROR_UNKNOWN = "something went wrong"
     }
 }
