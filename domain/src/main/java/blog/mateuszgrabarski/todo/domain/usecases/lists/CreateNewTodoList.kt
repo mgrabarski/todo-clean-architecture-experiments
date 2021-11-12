@@ -14,5 +14,6 @@ interface CreateNewTodoList : ArgumentedUseCase<Arguments, UseCaseResult<TodoLis
 
     companion object {
         const val ERROR_EMPTY_NAME = "name can not be empty"
+        const val ERROR_UNKNOWN = "something went wrong"
     }
 }

@@ -3,11 +3,13 @@ package blog.mateuszgrabarski.todo.domain.usecases.lists.impl
 import app.cash.turbine.test
 import blog.mateuszgrabarski.todo.domain.data.factories.TodoListFactory
 import blog.mateuszgrabarski.todo.domain.data.validators.TodoListNameValidator
+import blog.mateuszgrabarski.todo.domain.fakes.ErrorTodoListRepository
 import blog.mateuszgrabarski.todo.domain.fakes.FakeToDoListRepository
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
 import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Arguments
 import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Companion.ERROR_EMPTY_NAME
+import blog.mateuszgrabarski.todo.domain.usecases.lists.CreateNewTodoList.Companion.ERROR_UNKNOWN
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Failure
 import blog.mateuszgrabarski.todo.domain.usecases.utils.Success
 import kotlinx.coroutines.runBlocking
@@ -41,6 +43,19 @@ internal class CreateNewTodoListTest {
         ).test {
             val result = awaitItem() as Failure
             assertEquals(ERROR_EMPTY_NAME, result.message)
+            awaitComplete()
+        }
+    }
+
+    @Test
+    internal fun `Failures when repository return error`() = runBlocking {
+        val errorRepository = ErrorTodoListRepository()
+        val errorSut = CreateNewTodoListImpl(nameValidator, factory, errorRepository)
+        errorSut.execute(
+            Arguments(VALID_NAME, SOME_DESCRIPTION)
+        ).test {
+            val result = awaitItem() as Failure
+            assertEquals(ERROR_UNKNOWN, result.message)
             awaitComplete()
         }
     }
