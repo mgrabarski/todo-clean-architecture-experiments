@@ -41,7 +41,21 @@ class TodoListRepositoryImpl(
     }
 
     override suspend fun getById(id: Id): TodoList? {
-        return null
+        val result = safeCacheCall(dispatcher) {
+            cache.get(id)
+        }
+        return when (result) {
+            is CacheResult.GenericError -> {
+                null
+            }
+            is CacheResult.Success -> {
+                if (result.value != null) {
+                    mapper.mapFromEntity(result.value)
+                } else {
+                    null
+                }
+            }
+        }
     }
 
     override suspend fun update(list: TodoList): Success {
