@@ -74,6 +74,16 @@ internal class TodoListRepositoryImplTest {
         assertNull(remote.get(todo.id))
     }
 
+    @Test
+    internal fun `Gets all lists`() = runBlocking {
+        val todo = anyTodoList()
+        sut.saveList(todo)
+
+        val result = sut.getAllLists()
+
+        assertEquals(1, result.size)
+    }
+
     companion object {
         private const val NEW_DESCRIPTION = "new description"
     }

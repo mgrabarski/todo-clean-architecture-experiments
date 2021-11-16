@@ -81,5 +81,17 @@ class TodoListRepositoryImpl(
         }
     }
 
-    override suspend fun getAllLists(): List<TodoList> = emptyList()
+    override suspend fun getAllLists(): List<TodoList> {
+        val result = safeCacheCall(dispatcher) {
+            cache.getAll()
+        }
+        return when (result) {
+            is CacheResult.GenericError -> {
+                emptyList()
+            }
+            is CacheResult.Success -> {
+                result.value?.map { mapper.mapFromEntity(it) } ?: emptyList()
+            }
+        }
+    }
 }

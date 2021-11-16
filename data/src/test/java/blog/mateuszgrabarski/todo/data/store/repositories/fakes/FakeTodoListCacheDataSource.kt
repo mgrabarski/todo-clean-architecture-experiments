@@ -12,6 +12,8 @@ class FakeTodoListCacheDataSource : TodoListCacheDataSource {
         map[newList.id] = newList
     }
 
+    override suspend fun getAll(): List<TodoListEntity> = map.values.toList()
+
     override suspend fun get(id: Id): TodoListEntity? = map[id]
 
     override suspend fun update(list: TodoListEntity) {
