@@ -62,6 +62,18 @@ internal class TodoListRepositoryImplTest {
         assertEquals(NEW_DESCRIPTION, remote.get(list.id)!!.description)
     }
 
+    @Test
+    internal fun `Deletes todo`() = runBlocking {
+        val todo = anyTodoList()
+        sut.saveList(todo)
+
+        val result = sut.delete(todo.id)
+
+        assertTrue(result)
+        assertNull(cache.get(todo.id))
+        assertNull(remote.get(todo.id))
+    }
+
     companion object {
         private const val NEW_DESCRIPTION = "new description"
     }

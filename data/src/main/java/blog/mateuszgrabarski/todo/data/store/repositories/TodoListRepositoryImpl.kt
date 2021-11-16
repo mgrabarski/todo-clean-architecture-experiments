@@ -63,7 +63,23 @@ class TodoListRepositoryImpl(
         }
     }
 
-    override suspend fun delete(id: Id): Success = true
+    override suspend fun delete(id: Id): Success {
+        val result = safeCacheCall(dispatcher) {
+            cache.delete(id)
+        }
+
+        return when (result) {
+            is CacheResult.GenericError -> {
+                false
+            }
+            is CacheResult.Success -> {
+                safeApiCall(dispatcher) {
+                    remote.delete(id)
+                }
+                true
+            }
+        }
+    }
 
     override suspend fun getAllLists(): List<TodoList> = emptyList()
 }
