@@ -1,5 +1,6 @@
 package blog.mateuszgrabarski.todo.data.store.repositories
 
+import blog.mateuszgrabarski.todo.common_test.components.CoroutineDispatcherForTests
 import blog.mateuszgrabarski.todo.data.model.mappers.specific.DomainEntityMapper
 import blog.mateuszgrabarski.todo.data.store.cache.TodoListCacheDataSource
 import blog.mateuszgrabarski.todo.data.store.repositories.fakes.FakeTodoListCacheDataSource
@@ -10,10 +11,8 @@ import blog.mateuszgrabarski.todo.domain.models.TodoList
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -23,7 +22,7 @@ internal class TodoListRepositoryImplTest {
     private val cache = FakeTodoListCacheDataSource()
     private val remote = FakeTodoListRemoteDataSource()
     private val mapper = DomainEntityMapper()
-    private val dispatcher: CoroutineDispatcher = TestCoroutineDispatcher()
+    private val dispatcher = CoroutineDispatcherForTests()
 
     private val sut = TodoListRepositoryImpl(cache, remote, mapper, dispatcher)
 

@@ -43,6 +43,8 @@ android {
 
 dependencies {
     implementation project(Modules.domain)
+    implementation project(Modules.common)
+
     implementation AndroidDependencies.koin
     implementation Dependencies.kotlinCoroutines
     implementation Dependencies.jodaTime
@@ -53,4 +55,5 @@ dependencies {
     testRuntimeOnly UnitTestDependencies.junitJupiterEngine
     testImplementation UnitTestDependencies.mockk
     testImplementation UnitTestDependencies.mockkAgentJvm
+    testImplementation project(Modules.commonTests)
 }

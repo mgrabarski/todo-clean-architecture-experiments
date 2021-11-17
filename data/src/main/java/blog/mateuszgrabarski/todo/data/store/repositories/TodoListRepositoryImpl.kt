@@ -1,5 +1,6 @@
 package blog.mateuszgrabarski.todo.data.store.repositories
 
+import blog.mateuszgrabarski.todo.common.components.DispatcherProvider
 import blog.mateuszgrabarski.todo.data.model.entities.TodoListEntity
 import blog.mateuszgrabarski.todo.data.model.mappers.DomainModelMapper
 import blog.mateuszgrabarski.todo.data.store.cache.CacheResult
@@ -11,19 +12,18 @@ import blog.mateuszgrabarski.todo.domain.models.Id
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 import blog.mateuszgrabarski.todo.domain.repositories.Success
 import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
-import kotlinx.coroutines.CoroutineDispatcher
 
 class TodoListRepositoryImpl(
     private val cache: TodoListCacheDataSource,
     private val remote: TodoListRemoteDataSource,
     private val mapper: DomainModelMapper<TodoListEntity, TodoList>,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: DispatcherProvider
 ) : TodoListRepository {
 
     override suspend fun saveList(newList: TodoList): Success {
         val entity = mapper.mapToEntity(newList)
 
-        val result = safeCacheCall(dispatcher) {
+        val result = safeCacheCall(dispatcher.io()) {
             cache.insert(entity)
         }
 
@@ -32,7 +32,7 @@ class TodoListRepositoryImpl(
                 false
             }
             is CacheResult.Success -> {
-                safeApiCall(dispatcher) {
+                safeApiCall(dispatcher.io()) {
                     remote.insert(entity)
                 }
                 true
@@ -41,7 +41,7 @@ class TodoListRepositoryImpl(
     }
 
     override suspend fun getById(id: Id): TodoList? {
-        val result = safeCacheCall(dispatcher) {
+        val result = safeCacheCall(dispatcher.io()) {
             cache.get(id)
         }
         return when (result) {
@@ -61,7 +61,7 @@ class TodoListRepositoryImpl(
     override suspend fun update(list: TodoList): Success {
         val entity = mapper.mapToEntity(list)
 
-        val result = safeCacheCall(dispatcher) {
+        val result = safeCacheCall(dispatcher.io()) {
             cache.update(entity)
         }
         return when (result) {
@@ -69,7 +69,7 @@ class TodoListRepositoryImpl(
                 false
             }
             is CacheResult.Success -> {
-                safeApiCall(dispatcher) {
+                safeApiCall(dispatcher.io()) {
                     remote.update(entity)
                 }
                 true
@@ -78,7 +78,7 @@ class TodoListRepositoryImpl(
     }
 
     override suspend fun delete(id: Id): Success {
-        val result = safeCacheCall(dispatcher) {
+        val result = safeCacheCall(dispatcher.io()) {
             cache.delete(id)
         }
 
@@ -87,7 +87,7 @@ class TodoListRepositoryImpl(
                 false
             }
             is CacheResult.Success -> {
-                safeApiCall(dispatcher) {
+                safeApiCall(dispatcher.io()) {
                     remote.delete(id)
                 }
                 true
@@ -96,7 +96,7 @@ class TodoListRepositoryImpl(
     }
 
     override suspend fun getAllLists(): List<TodoList> {
-        val result = safeCacheCall(dispatcher) {
+        val result = safeCacheCall(dispatcher.io()) {
             cache.getAll()
         }
         return when (result) {
