@@ -32,7 +32,7 @@ class TodoRepositoryImpl(
             }
             is CacheResult.Success -> {
                 safeApiCall(dispatcher.io()) {
-                    remote.insert(entity)
+                    remote.insertToNotCompleted(entity)
                 }
                 true
             }
@@ -72,7 +72,8 @@ class TodoRepositoryImpl(
             }
             is CacheResult.Success -> {
                 safeApiCall(dispatcher.io()) {
-                    remote.delete(todo.id)
+                    remote.deleteFromCompleted(todo.id)
+                    remote.deleteFromNotCompleted(todo.id)
                 }
                 true
             }
