@@ -1,8 +1,7 @@
 package blog.mateuszgrabarski.todo.data.store.repositories
 
 import blog.mateuszgrabarski.todo.common.components.DispatcherProvider
-import blog.mateuszgrabarski.todo.data.model.entities.TodoListEntity
-import blog.mateuszgrabarski.todo.data.model.mappers.DomainModelMapper
+import blog.mateuszgrabarski.todo.data.model.mappers.specific.TodoListMapper
 import blog.mateuszgrabarski.todo.data.store.cache.CacheResult
 import blog.mateuszgrabarski.todo.data.store.cache.TodoListCacheDataSource
 import blog.mateuszgrabarski.todo.data.store.cache.utils.safeCacheCall
@@ -16,7 +15,7 @@ import blog.mateuszgrabarski.todo.domain.repositories.TodoListRepository
 class TodoListRepositoryImpl(
     private val cache: TodoListCacheDataSource,
     private val remote: TodoListRemoteDataSource,
-    private val mapper: DomainModelMapper<TodoListEntity, TodoList>,
+    private val mapper: TodoListMapper,
     private val dispatcher: DispatcherProvider
 ) : TodoListRepository {
 
