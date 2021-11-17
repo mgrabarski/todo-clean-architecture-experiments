@@ -1,7 +1,7 @@
 package blog.mateuszgrabarski.todo.data.store.repositories
 
 import blog.mateuszgrabarski.todo.common_test.components.CoroutineDispatcherForTests
-import blog.mateuszgrabarski.todo.data.model.mappers.specific.DomainEntityMapper
+import blog.mateuszgrabarski.todo.data.model.mappers.specific.TodoListMapper
 import blog.mateuszgrabarski.todo.data.store.cache.TodoListCacheDataSource
 import blog.mateuszgrabarski.todo.data.store.repositories.fakes.FakeTodoListCacheDataSource
 import blog.mateuszgrabarski.todo.data.store.repositories.fakes.FakeTodoListRemoteDataSource
@@ -21,7 +21,7 @@ internal class TodoListRepositoryImplTest {
 
     private val cache = FakeTodoListCacheDataSource()
     private val remote = FakeTodoListRemoteDataSource()
-    private val mapper = DomainEntityMapper()
+    private val mapper = TodoListMapper()
     private val dispatcher = CoroutineDispatcherForTests()
 
     private val sut = TodoListRepositoryImpl(cache, remote, mapper, dispatcher)

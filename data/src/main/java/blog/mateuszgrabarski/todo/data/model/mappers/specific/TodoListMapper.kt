@@ -4,7 +4,7 @@ import blog.mateuszgrabarski.todo.data.model.entities.TodoListEntity
 import blog.mateuszgrabarski.todo.data.model.mappers.DomainModelMapper
 import blog.mateuszgrabarski.todo.domain.models.TodoList
 
-class DomainEntityMapper : DomainModelMapper<TodoListEntity, TodoList> {
+class TodoListMapper : DomainModelMapper<TodoListEntity, TodoList> {
 
     override fun mapFromEntity(entity: TodoListEntity): TodoList =
         TodoList(
