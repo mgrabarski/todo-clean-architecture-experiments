@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
 }
 
@@ -7,8 +7,6 @@ android {
     compileSdk ApplicationConfig.compileSdkVersion
 
     defaultConfig {
-        applicationId Flavours.productionApplicationId
-
         minSdkVersion ApplicationConfig.minSdkVersion
         targetSdkVersion ApplicationConfig.targetSdkVersion
         versionCode ApplicationConfig.versionCode
@@ -16,7 +14,6 @@ android {
 
         testInstrumentationRunner AndroidTestDependencies.instrumentation_runner
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -28,19 +25,30 @@ android {
         targetCompatibility Java.java_version
     }
 
+    packagingOptions {
+        exclude("META-INF/module_name_debug.kotlin_module")
+        exclude("META-INF/data_debug.kotlin_module")
+    }
+
     kotlinOptions {
         jvmTarget = Java.java_version
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
     }
 }
 
 dependencies {
-    implementation AndroidDependencies.core
-    implementation AndroidDependencies.appCompat
-    implementation AndroidDependencies.material
-    implementation AndroidDependencies.constraintLayout
     implementation AndroidDependencies.koin
+    implementation Dependencies.kotlinCoroutines
 
-    implementation project(Modules.domain)
-    implementation project(Modules.data)
-    implementation project(Modules.common)
+    testImplementation Dependencies.kotlinCoroutines
+    testImplementation UnitTestDependencies.kotlinCoroutines
+    testImplementation UnitTestDependencies.junit
+    testRuntimeOnly UnitTestDependencies.junitJupiterEngine
+    testImplementation UnitTestDependencies.mockk
+    testImplementation UnitTestDependencies.mockkAgentJvm
 }
